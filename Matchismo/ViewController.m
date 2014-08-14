@@ -43,9 +43,8 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
-    
 }
 
 - (NSString *)titleForCard:(Card *)card
@@ -56,6 +55,13 @@
 - (UIImage *)backgroundImageForCard:(Card *)card
 {
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+}
+
+- (IBAction)redealButtonPress:(UIButton *)sender
+{
+    _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                              usingDeck:[self createDeck]];
+    [self updateUI];
 }
 
 @end
